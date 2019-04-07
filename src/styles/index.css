@@ -22,6 +22,15 @@ h1 {
   pointer-events: none;
 }
 
+h2 {
+  font-size: 24px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
 p {
   opacity: 0;
   font-size: 24px;
@@ -32,6 +41,40 @@ p {
   color: #FFFFFF;
   transition: opacity 2s ease;
   pointer-events: none;
+}
+
+div#highscores {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+input {
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: 'Offside', sans-serif;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+h3 {
+  font-size: 36px;
+}
+
+ul {
+  font-size: 24px;
+}
+
+div.divider {
+  width: 100%;
+  height: 1px;
+  margin: 15px 0;
+  background-color: #FFFFFF;
 }
 
 #game-over.visible, #directions.visible {

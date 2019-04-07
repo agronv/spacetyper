@@ -1,13 +1,16 @@
-// import * as THREE from 'three';
 import Player from './player';
-import Hearts from './hearts';
 import Enemies from './enemies';
 import Starfield from './starfield';
 import Trie from './trie';
 import KeyHandler from './key_handler';
+import Timer from './timer';
+
+import { addHighscore, getHighscores } from './firebase';
+
 
 export default class Game {
   constructor() {
+    this.timer = new Timer();
     this.playing = false;
     this.fieldOfView = 50;
     this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -25,7 +28,18 @@ export default class Game {
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.scene.background = new THREE.Color(0x000000);
+    this.highscores = [];
     document.body.appendChild(this.renderer.domElement);
+  }
+
+  getScores() {
+    this.highscores = [];
+    getHighscores().then(snapshot => {
+      snapshot.forEach(doc => {
+        this.highscores[doc.id] = doc.data();
+      });
+    });
+    this.loaded = true;
   }
 
   checkGuess() {
@@ -40,6 +54,7 @@ export default class Game {
   gameOver() {
     this.playing = false;
     this.enemies.stopSpawning();
+    this.timer.turnOff();
 
     document.getElementById('game-over').innerHTML = 'GAME OVER';
 
@@ -51,6 +66,7 @@ export default class Game {
     this.playing = true;
     this.player.restartHealth(); 
     this.enemies.spawnEnemies();
+    this.timer.turnOn();
 
     document.getElementById('game-over').classList.remove('visible');
     document.getElementById('directions').classList.remove('visible');
@@ -63,7 +79,7 @@ export default class Game {
 
   update() {
     this.player.update();
-    
+
     let isHit = this.enemies.updateEnemy();
     if (isHit) {
       this.player.isHit();
