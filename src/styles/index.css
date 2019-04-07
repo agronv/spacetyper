@@ -52,6 +52,7 @@ table {
 
 html {
   font-family: 'Offside', sans-serif;
+  overflow: hidden;
 }
 
 canvas {
