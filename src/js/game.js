@@ -57,6 +57,7 @@ export default class Game {
     })
     .then(() => {
       const listNode = document.getElementById("highscore-ul");
+      listNode.innerHTML = "";
   
       Object.values(this.highscores).forEach(entry => {
         const node = document.createElement("LI");
