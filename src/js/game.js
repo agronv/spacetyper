@@ -53,6 +53,7 @@ export default class Game {
     this.highscores = {};
     
     getHighscores().then(snapshot => {
+      debugger
       snapshot.forEach(doc => {
         this.highscores[doc.id] = doc.data();
       });
