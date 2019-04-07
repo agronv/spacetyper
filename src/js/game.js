@@ -28,18 +28,47 @@ export default class Game {
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.scene.background = new THREE.Color(0x000000);
-    this.highscores = [];
+    this.highscores = {};
+
+    const highscoreForm = document.getElementById('highscore-form');
+    const nameInput = document.getElementById('name-input');
+
+    highscoreForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (nameInput.value !== "") {
+        addHighscore(nameInput.value, this.timer.time);
+        nameInput.value = "";
+        nameInput.disabled = true;
+        nameInput.placeholder = "Highscore submitted";
+        this.getScores();
+      }
+    });
+    
+    this.getScores();
+
     document.body.appendChild(this.renderer.domElement);
   }
 
   getScores() {
-    this.highscores = [];
+    this.highscores = {};
+    
     getHighscores().then(snapshot => {
       snapshot.forEach(doc => {
         this.highscores[doc.id] = doc.data();
       });
     });
-    this.loaded = true;
+    
+    debugger
+
+    const listNode = document.getElementById("highscore-ul");
+
+    Object.values(this.highscores).forEach(entry => {
+      debugger
+      const node = document.createElement("LI");
+      const textNode = docuent.createTextNode(`${entry.name} ${this.timer.parseTime(entry.time)}`)
+      node.appendChild(textNode);
+      listNode.appendChilde(node);
+    });
   }
 
   checkGuess() {
@@ -55,9 +84,10 @@ export default class Game {
     this.playing = false;
     this.enemies.stopSpawning();
     this.timer.turnOff();
+    this.getScores();
 
     document.getElementById('game-over').innerHTML = 'GAME OVER';
-
+    document.getElementById('highscores').classList.add('visible');
     document.getElementById('directions').classList.add('visible');
     document.getElementById('game-over').classList.add('visible');
   }
@@ -68,6 +98,7 @@ export default class Game {
     this.enemies.spawnEnemies();
     this.timer.turnOn();
 
+    document.getElementById('highscores').classList.remove('visible');
     document.getElementById('game-over').classList.remove('visible');
     document.getElementById('directions').classList.remove('visible');
   }
