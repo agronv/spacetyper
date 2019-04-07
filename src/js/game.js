@@ -35,7 +35,7 @@ export default class Game {
 
     highscoreForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (nameInput.value !== "") {
+      if (nameInput.value !== "" && this.timer.time > 0) {
         addHighscore(nameInput.value, this.timer.time);
         nameInput.value = "";
         nameInput.disabled = true;
@@ -57,7 +57,7 @@ export default class Game {
     })
     .then(() => {
       const listNode = document.getElementById("highscore-ul");
-      
+
       while(listNode.firstChild) {
         listNode.removeChild(listNode.firstChild);
       }
