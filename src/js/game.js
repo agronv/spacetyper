@@ -57,13 +57,11 @@ export default class Game {
         this.highscores[doc.id] = doc.data();
       });
     });
-    
-    debugger
+
 
     const listNode = document.getElementById("highscore-ul");
 
     Object.values(this.highscores).forEach(entry => {
-      debugger
       const node = document.createElement("LI");
       const textNode = docuent.createTextNode(`${entry.name} ${this.timer.parseTime(entry.time)}`)
       node.appendChild(textNode);

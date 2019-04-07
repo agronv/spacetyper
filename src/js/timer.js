@@ -6,7 +6,6 @@ class Timer {
   }
 
   turnOn() {
-    debugger
     this.resetTimer();
     this.isTimerOn = true;
     this.interval = setInterval(this.tickTimer, 10);
