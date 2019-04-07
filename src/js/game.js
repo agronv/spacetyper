@@ -50,24 +50,23 @@ export default class Game {
   }
 
   getScores() {
-    this.highscores = {};
-    
     getHighscores().then(snapshot => {
-      debugger
       snapshot.forEach(doc => {
         this.highscores[doc.id] = doc.data();
       });
-    });
+    })
+    .then(() => {
+      const listNode = document.getElementById("highscore-ul");
+  
+      Object.values(this.highscores).forEach(entry => {
+        const node = document.createElement("LI");
+        const textNode = document.createTextNode(`${entry.name} ${this.timer.parseTime(entry.time)}`)
+        node.appendChild(textNode);
+        listNode.appendChild(node);
+      });
+    })
+    ;
 
-
-    const listNode = document.getElementById("highscore-ul");
-
-    Object.values(this.highscores).forEach(entry => {
-      const node = document.createElement("LI");
-      const textNode = docuent.createTextNode(`${entry.name} ${this.timer.parseTime(entry.time)}`)
-      node.appendChild(textNode);
-      listNode.appendChilde(node);
-    });
   }
 
   checkGuess() {

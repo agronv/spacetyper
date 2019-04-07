@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
+    "builddev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base",
     "start": "webpack --watch --mode=development",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
