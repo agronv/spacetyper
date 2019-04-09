@@ -8,9 +8,9 @@ export default class Bullet {
     this.speed = speed;
     this.word = word;
     this.changeX = (this.endPos.x - this.startPos.x) / this.speed*10; 
-    this.changeY = (this.endPos.y - this.startPos.y) / this.speed*10; 
-    this.changeZ = (this.endPos.z - this.startPos.z) / this.speed*10; 
-
+    this.changeY = (this.endPos.y - this.startPos.y-1) / this.speed*10; 
+    this.changeZ = (this.endPos.z - this.startPos.z+1) / this.speed*10; 
+    this.name = `${this.word}-bullet`
     this.startBullet();
   }
   
@@ -22,7 +22,7 @@ export default class Bullet {
     // this.bullet.lookAt( Object.keys(this.endPos) ); 
     this.bullet.position.set(this.startPos.x, this.startPos.y+1, this.startPos.z-1);
 
-    this.bullet.name = `${this.word}-bullet`
+    this.bullet.name = this.name;
     this.scene.add( this.bullet );
   }
 

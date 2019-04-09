@@ -1,5 +1,3 @@
-import Word from "./word";
-
 class TrieNode {
   constructor(letter) {
     this.letter = letter;

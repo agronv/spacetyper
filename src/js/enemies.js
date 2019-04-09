@@ -17,7 +17,7 @@ export default class Enemies {
 
   cancelColor() {
     this.enemies.forEach(enemy => {
-      if (enemy.word.text) enemy.word.text.material.color.setHex(0xff0000)
+      if (enemy.wordObject.text) enemy.wordObject.text.material.color.setHex(0xff0000)
     });
   }
 
@@ -53,7 +53,7 @@ export default class Enemies {
     clearInterval(this.spawnInterval);
 
     this.enemies.forEach(enemy => {
-      this.deleteEnemy(enemy, enemy.word.word)
+      this.deleteEnemy(enemy)
     })
 
     this.bullets.forEach(bullet => {
@@ -61,9 +61,9 @@ export default class Enemies {
       })
   }
 
-  deleteEnemy(enemy, word) {
-    const object = this.scene.getObjectByName(word);
-    const object2 = this.scene.getObjectByName(`${word}-word`);
+  deleteEnemy(enemy) {
+    const object = this.scene.getObjectByName(enemy.word);
+    const object2 = this.scene.getObjectByName(`${enemy.word}-word`);
     this.scene.remove(object);
     this.scene.remove(object2);
 
@@ -71,17 +71,17 @@ export default class Enemies {
   }
 
   deleteBullet(bullet) {
-    const object = this.scene.getObjectByName(bullet.bullet.name);
+    const object = this.scene.getObjectByName(bullet.name);
     this.scene.remove(object);
 
     this.bullets.delete(bullet);
   }
 
-  killEnemy(enemy, word) {
-    const bullet = new Bullet(this.scene, this.playerPos, enemy.enemy.scene.position, this.speed, enemy.word.word);
+  killEnemy(enemy) {
+    const bullet = new Bullet(this.scene, this.playerPos, enemy.enemy.scene.position, this.speed, enemy.word);
     this.bullets.add(bullet);
     this.bulletEnemy = {
-        [enemy.word.word]: [enemy, bullet]
+        [enemy.word]: [enemy, bullet]
     }
   }
 
@@ -90,12 +90,12 @@ export default class Enemies {
     this.enemies.forEach((enemy) => {
       if (enemy.updatePos()) {
         hit = true;
-        this.deleteEnemy(enemy, enemy.word.word);
+        this.deleteEnemy(enemy);
       }  
-      else if (this.bulletEnemy[enemy.word.word]) {
-        if (this.bulletEnemy[enemy.word.word][0].enemy.scene.position.z > this.bulletEnemy[enemy.word.word][1].bullet.position.z) {
-            this.deleteEnemy(enemy, enemy.word.word);
-            this.deleteBullet(this.bulletEnemy[enemy.word.word][1]);
+      else if (this.bulletEnemy[enemy.word]) {
+        if (this.bulletEnemy[enemy.word][0].enemy.scene.position.z > this.bulletEnemy[enemy.word][1].bullet.position.z) {
+            this.deleteEnemy(enemy);
+            this.deleteBullet(this.bulletEnemy[enemy.word][1]);
             delete this.bulletEnemy[enemy]; 
         }
       }

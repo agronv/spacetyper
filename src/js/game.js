@@ -76,7 +76,7 @@ export default class Game {
   checkGuess() {
     const targets = this.trie.find(this.keyHandler.guess); 
     targets.forEach(target => {
-      if (target.word.text) target.word.text.material.color.setHex(0xffff00);
+      if (target.wordObject.text) target.wordObject.text.material.color.setHex(0xffff00);
     })  
 
     if (this.trie.contains(this.keyHandler.guess)) this.keyHandler.clearGuess();
