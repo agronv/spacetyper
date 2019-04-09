@@ -12,45 +12,18 @@ export default class Bullet {
     this.changeZ = (this.endPos.z - this.startPos.z) / this.speed*10; 
 
     this.startBullet();
-    this.createBullet = this.createBullet.bind(this);
   }
   
   startBullet() {
-    // var loader = new THREE.GLTFLoader();
-
-    // loader.load('src/models/bullet/scene.gltf', (bullet) => {
-    //     bullet.scene.children[0].scale.set(.01, .01, .01 );
-    //     bullet.scene.lookAt( this.endPos.x, this.endPos.y, this.endPos.z );
-    //     bullet.scene.position.set(this.startPos.x, this.startPos.y, this.startPos.z);
-    //     this.scene.add( bullet.scene );
-    //     this.bullet = bullet;
-
-    //     const spotlight = new THREE.PointLight(0xffffff);
-    //     spotlight.position.set (1, 1, 1);
-    //     spotlight.power = 2 * Math.PI;
-    //     this.scene.add(spotlight);
-    // }, undefined, function (error) {
-    //   console.error(error);
-    // });
     var geometry = new THREE.BoxGeometry( 1, 1, 1 );
     var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
     this.bullet = new THREE.Mesh( geometry, material );
-    this.bullet.lookAt( this.endPos.x, this.endPos.y, this.endPos.z );
-    this.bullet.position.set(this.startPos.x, this.startPos.y, this.startPos.z);
+
+    // this.bullet.lookAt( Object.keys(this.endPos) ); 
+    this.bullet.position.set(this.startPos.x, this.startPos.y+1, this.startPos.z-1);
+
     this.bullet.name = `${this.word}-bullet`
     this.scene.add( this.bullet );
-  }
-
-  createBullet(bullet) {
-    bullet.scene.lookAt( this.endPos.x, this.endPos.y, this.endPos.z );
-    bullet.scene.position.set(this.startPos.x, this.startPos.y, this.startPos.z);
-    this.scene.add( bullet.scene );
-    this.bullet = bullet;
-
-    const spotlight = new THREE.PointLight(0xffffff);
-    spotlight.position.set (1, 1, 1);
-    spotlight.power = 2 *+ Math.PI;
-    this.scene.add(spotlight);
   }
 
   updatePos() {

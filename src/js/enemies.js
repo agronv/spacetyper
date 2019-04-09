@@ -78,7 +78,7 @@ export default class Enemies {
   }
 
   killEnemy(enemy, word) {
-    const bullet = new Bullet(this.scene, this.playerPos, enemy.enemy.scene.position, this.speed, word);
+    const bullet = new Bullet(this.scene, this.playerPos, enemy.enemy.scene.position, this.speed, enemy.word.word);
     this.bullets.add(bullet);
     this.bulletEnemy = {
         [enemy.word.word]: [enemy, bullet]
