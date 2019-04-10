@@ -31,8 +31,8 @@ export default class Game {
     this.camera.position.z = 0;
 
     const spotlight = new THREE.PointLight(0xffffff);
-    spotlight.position.set(0, 0, 0);
-    spotlight.power = 100;
+    spotlight.position.set(1, 1, 5);
+    spotlight.power = 40;
     this.scene.add(spotlight);
     
     this.timer = new Timer();
@@ -63,9 +63,9 @@ export default class Game {
       fontLoader.load( 'src/fonts/Roboto_Regular.json', (font) => {
         this.font = font;
         const bulletLoader = new THREE.GLTFLoader();
-        bulletLoader.load('src/models/bullet/scene.gltf', (bullet) => {
+        bulletLoader.load('src/models/bullet/Tomahawk Missile.gltf', (bullet) => {
           this.bulletTemplate = bullet.scene.children[0];
-          this.bulletTemplate.scale.set(2, 2, 2 );
+          this.bulletTemplate.scale.set( 0.3, 0.3, 0.3);
           this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
