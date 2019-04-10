@@ -14,7 +14,7 @@ export default class Player {
   }
 
   isHit() {
-    const object = this.scene.getObjectByName(`${this.health}`);
+    const object = this.scene.getObjectByName(`heart-${this.health}`);
     this.scene.remove(object);
     this.health--;
 
