@@ -38,7 +38,7 @@ export default class Enemy {
     this.enemy.position.z = this.position.z;
     this.enemy.name = this.word;
     this.enemy.lookAt( 0, 0, 20);
-    this.scene.add(enemy.scene);
+    this.scene.add(this.enemy);
     this.enemy.children[0].scale.set(.005, .005, .005);
   }
 
@@ -47,14 +47,14 @@ export default class Enemy {
   }
 
   deleteEnemy() {
-    const enemyObject = this.scene.getObjectByName(this.word);
-    const wordObject = this.scene.getObjectByName(`${this.word}-word`);
-    this.scene.remove(enemyObject);
-    this.scene.remove(wordObject);
     if (this.bullet) {
       const bulletObject = this.scene.getObjectByName(this.bullet.name);
       this.scene.remove(bulletObject);
     }
+    const enemyObject = this.scene.getObjectByName(this.word);
+    const wordObject = this.scene.getObjectByName(`${this.word}-word`);
+    this.scene.remove(enemyObject);
+    this.scene.remove(wordObject);
   }
 
   updatePos() {

@@ -62,7 +62,7 @@ export default class Enemies {
   }
 
   killEnemy(enemy) {
-    enemy.shootEnemy();
+    if (this.enemies.has(enemy)) enemy.shootEnemy();
   }
 
   updateEnemy() {
