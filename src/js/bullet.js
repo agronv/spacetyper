@@ -16,7 +16,7 @@ export default class Bullet {
   }
   
   startBullet() {
-    // this.bullet.lookAt( Object.keys(this.endPos) ); 
+    this.bullet.lookAt( this.startPos.x, this.startPos.y, this.startPos.z ); 
     this.bullet.position.set(this.startPos.x, this.startPos.y+1, this.startPos.z-1);
     this.position = this.bullet.position;
     this.bullet.name = this.name;

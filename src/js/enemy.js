@@ -59,7 +59,7 @@ export default class Enemy {
       this.position = this.enemy.position;
       this.wordObject.updatePos(this.position);
       if (this.bullet) this.bullet.updatePos();
-      if ( this.bullet && this.position.z > this.bullet.position.z) return "KILL";
+      if ( this.bullet && this.position.z > this.bullet.position.z-3) return "KILL";
       if (this.position.z > this.playerPos.z - 1) return "HIT"
     }
   }

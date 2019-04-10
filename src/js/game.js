@@ -65,7 +65,7 @@ export default class Game {
         const bulletLoader = new THREE.GLTFLoader();
         bulletLoader.load('src/models/bullet/Tomahawk Missile.gltf', (bullet) => {
           this.bulletTemplate = bullet.scene.children[0];
-          this.bulletTemplate.scale.set( 0.3, 0.3, 0.3);
+          this.bulletTemplate.scale.set( 0.15, 0.15, 0.15);
           this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
