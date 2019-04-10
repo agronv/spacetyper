@@ -31,20 +31,26 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
-	line-height: 1;
+  line-height: 1;
+  position: relative;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -64,7 +70,7 @@ h1 {
   opacity: 0;
   font-size: 80px;
   position: absolute;
-  top: 300px;
+  top: 42%;
   left: 50%;
   transform: translateX(-50%);
   color: #FF0000;
@@ -81,11 +87,11 @@ h2 {
   pointer-events: none;
 }
 
-p {
+body > p {
   opacity: 0;
   font-size: 24px;
   position: absolute;
-  top: 390px;
+  top: 53.5%;
   left: 50%;
   transform: translateX(-50%);
   color: #FFFFFF;
@@ -138,9 +144,19 @@ div.divider {
 }
 
 #text-field {
+  opacity: 1;
+}
+
+.text-field-container {
   display: inline-block;
   opacity: 1;
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 25px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.text-field-container > p {
+  color: #ffffff;
+  font-size: 30px;
 }

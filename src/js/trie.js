@@ -20,7 +20,6 @@ class Trie {
     let currentNode = this.root;
     const word = wordNode.word;
 
-
     for (let letter of word) {
       if (!currentNode.children[letter]) {
         currentNode.children[letter] = new TrieNode(letter);
@@ -47,7 +46,7 @@ class Trie {
 
     if (currentNode.isWord) {
       this.enemies.cancelColor();
-      this.enemies.killEnemy(currentNode.enemy, word);
+      this.enemies.killEnemy(currentNode.enemy);
       this.delete(word);
       return true;
     }

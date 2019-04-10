@@ -84,6 +84,7 @@ export default class Game {
 
   gameOver() {
     this.playing = false;
+    this.keyHandler.clearGuess();
     this.enemies.stopSpawning();
     this.timer.turnOff();
     this.getScores();

@@ -11,6 +11,7 @@ class KeyHandler {
 
   clearGuess() {
     this.guess = "";
+    this.keyField.innerText = this.guess;
   }
 
   handleKeyDown(e) {
@@ -26,6 +27,7 @@ class KeyHandler {
           // Alphabet
           // e.key has the alphabet4-094er
           this.guess += e.key;
+          this.keyField.innerText = this.guess;
         } else if (e.keyCode === 32) {
           // Spacebar
           this.enemies.cancelColor();
@@ -38,10 +40,11 @@ class KeyHandler {
           this.clearGuess();
         } else if (e.keyCode === 8) {
           // Backspace
-          this.guess = this.guess.slice(0,-1)
+          this.guess = this.guess.slice(0,-1);
+          this.keyField.innerText = this.guess;
+          this.enemies.cancelColor();
         }
       } 
-      this.keyField.innerText = this.guess;
     }
   }
 }
