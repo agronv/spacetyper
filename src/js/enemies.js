@@ -1,5 +1,4 @@
 import Enemy from './enemy';
-import Bullet from './bullet';
 
 export default class Enemies {
     constructor(scene, speed, view, startPos, playerPos, trie) {
@@ -52,10 +51,6 @@ export default class Enemies {
 
     this.enemies.forEach(enemy => {
       this.deleteEnemy(enemy)
-    })
-
-    this.bullets.forEach(bullet => {
-        this.deleteBullet(bullet);
     })
   }
 

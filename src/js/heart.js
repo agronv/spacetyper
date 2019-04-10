@@ -9,13 +9,9 @@ export default class Heart {
     this.index = index;
 
     this.startHeart();
-
-    this.drawHeart = this.drawHeart.bind(this);
   }
   
   startHeart() {
-    var x = 0, y = 0;
-
     var loader = new THREE.GLTFLoader();
 
     loader.load('src/models/heart/scene.gltf', (gltf) => {
