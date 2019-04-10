@@ -19,10 +19,10 @@ export default class Heart {
       heart.scene.name = `heart-${this.index}`
       this.scene.add(heart.scene);
 
-      const spotlight = new THREE.PointLight(0xffffff);
-      spotlight.position.set (1, 1, 1);
-      spotlight.power = 2 * Math.PI;
-      this.scene.add(spotlight);
+      const pointlight = new THREE.PointLight(0xffffff);
+      pointlight.position.set (1, 1, 1);
+      pointlight.power = 2 * Math.PI;
+      this.scene.add(pointlight);
 
       this.heart = heart.scene.children[0];
     }, undefined, function (error) {

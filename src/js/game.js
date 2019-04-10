@@ -58,10 +58,10 @@ export default class Game {
       const fontLoader = new THREE.FontLoader();
       fontLoader.load( 'src/fonts/Roboto_Regular.json', (font) => {
         this.font = font;
-        const bulletLoader = new THREE.GLTFLoader()
+        const bulletLoader = new THREE.GLTFLoader();
         bulletLoader.load('src/models/bullet/scene.gltf', (bullet) => {
-          this.bullet = bullet.scene;
-          this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bullet);
+          this.bulletTemplate = bullet.scene;
+          this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
           this.animate();

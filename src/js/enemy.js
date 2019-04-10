@@ -3,14 +3,14 @@ import Word from './word';
 import Bullet from './bullet';
 
 export default class Enemy {
-  constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bullet) {
+  constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bulletTemplate) {
     this.position = position;
     this.scene = scene;
     this.speed = speed;
     this.playerPos = playerPos;
     this.trie = trie;
     this.font = font;
-    this.bullet = bullet;
+    this.bulletTemplate = bulletTemplate;
     this.enemy = enemyTemplate.clone();
 
     this.changeX = -1 * (this.position.x - this.playerPos.x) / this.speed;
@@ -37,7 +37,7 @@ export default class Enemy {
   }
 
   shootEnemy() {
-    this.bullet = new Bullet(this.scene, this.playerPos, this.enemy.position, this.speed, this.word, this.font, this.bullet)
+    this.bullet = new Bullet(this.scene, this.playerPos, this.enemy.position, this.speed, this.word, this.bulletTemplate)
   }
 
   deleteEnemy() {
