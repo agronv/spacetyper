@@ -34,19 +34,17 @@ export default class Enemies {
   }
 
   spawnEnemies() {
-    this.difficulty = 1;
-    let i = 1;
+    this.spawnRate = 2000;
 
     this.difficultyInterval = setInterval(() => {
-      this.difficulty *= 1.2;
+      this.spawnRate /= 1.2;
     }, 8000);
     this.spawnInterval = setInterval(() => {
-      i++;
       let random = Math.floor(Math.random() * this.positions.length);
       let position = this.positions[random]
       let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
       this.enemies.add(enemy);
-    }, 2000 / this.difficulty);
+    }, this.spawnRate);
   }
 
   stopSpawning() {

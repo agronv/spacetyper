@@ -30,6 +30,10 @@ export default class Game {
     this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 0;
 
+    const spotlight = new THREE.PointLight(0xffffff);
+    spotlight.position.set(0, 0, 0);
+    spotlight.power = 100;
+    this.scene.add(spotlight);
     
     this.timer = new Timer();
     this.trie = new Trie();
@@ -60,7 +64,8 @@ export default class Game {
         this.font = font;
         const bulletLoader = new THREE.GLTFLoader();
         bulletLoader.load('src/models/bullet/scene.gltf', (bullet) => {
-          this.bulletTemplate = bullet.scene;
+          this.bulletTemplate = bullet.scene.children[0];
+          this.bulletTemplate.scale.set(2, 2, 2 );
           this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
