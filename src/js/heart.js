@@ -13,18 +13,18 @@ export default class Heart {
   startHeart() {
     var loader = new THREE.GLTFLoader();
 
-    loader.load('src/models/heart/scene.gltf', (gltf) => {
-      gltf.scene.children[0].scale.set(.1, .1, .1 );
-      gltf.scene.position.set(62 + 11 * this.index , -45, -100);
-      gltf.scene.name = `heart-${this.index}`
-      this.scene.add(gltf.scene);
+    loader.load('src/models/heart/scene.gltf', (heart) => {
+      heart.scene.children[0].scale.set(.1, .1, .1 );
+      heart.scene.position.set(62 + 11 * this.index , -45, -100);
+      heart.scene.name = `heart-${this.index}`
+      this.scene.add(heart.scene);
 
       const spotlight = new THREE.PointLight(0xffffff);
       spotlight.position.set (1, 1, 1);
       spotlight.power = 2 * Math.PI;
       this.scene.add(spotlight);
 
-      this.heart = gltf.scene.children[0];
+      this.heart = heart.scene.children[0];
     }, undefined, function (error) {
       console.error(error);
     });

@@ -50,7 +50,6 @@ export default class Player {
       this.ship = ship.scene.children[0];
 
       return this.scene.add(ship.scene);
-
     }, undefined, function (error) {
       console.error(error);
     });
