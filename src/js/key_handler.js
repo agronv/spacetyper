@@ -31,6 +31,7 @@ class KeyHandler {
         if (e.keyCode >= 65 && e.keyCode <= 90) {
           // Alphabet
           // e.key has the alphabet4-094er
+          // this.enemies.cancelColor();
           this.guess += e.key;
           this.keyField.innerText = this.guess;
         } else if (e.keyCode === 32) {

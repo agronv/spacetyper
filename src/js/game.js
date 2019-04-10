@@ -30,10 +30,10 @@ export default class Game {
     this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 0;
 
-    const spotlight = new THREE.PointLight(0xffffff);
-    spotlight.position.set(1, 1, 5);
-    spotlight.power = 40;
-    this.scene.add(spotlight);
+    // const spotlight = new THREE.PointLight(0xffffff);
+    // spotlight.position.set(1, 1, 5);
+    // spotlight.power = 40;
+    // this.scene.add(spotlight);
     
     this.timer = new Timer();
     this.trie = new Trie();
