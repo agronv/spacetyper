@@ -11,9 +11,12 @@ class KeyHandler {
 
   clearGuess() {
     this.guess = "";
-    setInterval(() => {
+    this.keyField.classList.add('blue');
+    const interval = setInterval(() => {
       this.keyField.innerText = this.guess;
-    }, 150);
+      this.keyField.classList.remove('blue');
+      clearInterval(interval);
+    }, 225);
   }
 
   handleKeyDown(e) {
