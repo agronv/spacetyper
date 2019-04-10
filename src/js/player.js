@@ -14,17 +14,15 @@ export default class Player {
   }
 
   isHit() {
-    this.health--;
-    this.hearts.health--;
     const object = this.scene.getObjectByName(`${this.health}`);
     this.scene.remove(object);
+    this.health--;
 
     if (this.health <= 0) this.game.gameOver();
   }
 
   restartHealth() {
     this.health = 3;
-    this.hearts.health = 3;
     this.hearts.spawnHearts();
   }
 

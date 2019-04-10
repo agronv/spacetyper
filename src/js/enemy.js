@@ -1,6 +1,7 @@
 import 'three/examples/js/loaders/GLTFLoader';
 import dictionary from './dictionary.json';
 import Word from './word';
+import Bullet from './bullet';
 
 export default class Enemy {
   constructor(position, scene, speed, playerPos, trie) {
@@ -9,10 +10,11 @@ export default class Enemy {
     this.speed = speed;
     this.playerPos = playerPos;
     this.trie = trie;
-    this.changeX = -1 * (this.position.x / this.speed);
-    this.changeY = -1 * ((this.position.y - this.playerPos.y) / this.speed);
+    this.changeX = -1 * (this.position.x - this.playerPos.x) / this.speed;
+    this.changeY = -1 * (this.position.y - this.playerPos.y - 1) / this.speed;
     this.changeZ = -1 * (this.position.z - this.playerPos.z) / this.speed;
     this.word = dictionary[Math.floor(Math.random() * dictionary.length)];
+    this.bullet = null;
 
     this.setEnemy = this.setEnemy.bind(this);
     this.startEnemy();
@@ -30,23 +32,41 @@ export default class Enemy {
   }
 
   setEnemy(enemy) {
-    enemy.scene.position.x = this.position.x;
-    enemy.scene.position.y = this.position.y;
-    enemy.scene.position.z = this.position.z;
-    enemy.scene.name = this.word;
-    enemy.scene.lookAt( 0, 0, 20);
+    this.enemy = enemy.scene;
+    this.enemy.position.x = this.position.x;
+    this.enemy.position.y = this.position.y;
+    this.enemy.position.z = this.position.z;
+    this.enemy.name = this.word;
+    this.enemy.lookAt( 0, 0, 20);
     this.scene.add(enemy.scene);
-    enemy.scene.children[0].scale.set(.005, .005, .005);
-    this.enemy = enemy;
+    this.enemy.children[0].scale.set(.005, .005, .005);
+  }
+
+  shootEnemy() {
+    this.bullet = new Bullet(this.scene, this.playerPos, this.enemy.position, this.speed, this.word)
+  }
+
+  deleteEnemy() {
+    const enemyObject = this.scene.getObjectByName(this.word);
+    const wordObject = this.scene.getObjectByName(`${this.word}-word`);
+    this.scene.remove(enemyObject);
+    this.scene.remove(wordObject);
+    if (this.bullet) {
+      const bulletObject = this.scene.getObjectByName(this.bullet.name);
+      this.scene.remove(bulletObject);
+    }
   }
 
   updatePos() {
     if (this.enemy) {
-      this.enemy.scene.position.z += this.changeZ;
-      this.enemy.scene.position.x += this.changeX;
-      this.enemy.scene.position.y += this.changeY;
-      this.wordObject.updatePos(this.enemy.scene.position);
-      return this.enemy.scene.position.z > this.playerPos.z * 1.15
+      this.enemy.position.z += this.changeZ;
+      this.enemy.position.x += this.changeX;
+      this.enemy.position.y += this.changeY;
+      this.position = this.enemy.position;
+      this.wordObject.updatePos(this.position);
+      if (this.bullet) this.bullet.updatePos();
+      if ( this.bullet && this.position.z > this.bullet.position.z) return "KILL";
+      if (this.position.z > this.playerPos.z - 1) return "HIT"
     }
   }
 

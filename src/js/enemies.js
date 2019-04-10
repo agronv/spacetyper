@@ -4,8 +4,6 @@ import Bullet from './bullet';
 export default class Enemies {
     constructor(scene, speed, view, startPos, playerPos, trie) {
         this.enemies = new Set();
-        this.bullets = new Set();
-        this.bulletEnemy = {};
         this.speed = speed;
         this.startPos = startPos;
         this.playerPos = playerPos;
@@ -58,53 +56,30 @@ export default class Enemies {
 
     this.bullets.forEach(bullet => {
         this.deleteBullet(bullet);
-      })
+    })
   }
 
   deleteEnemy(enemy) {
-    const object = this.scene.getObjectByName(enemy.word);
-    const object2 = this.scene.getObjectByName(`${enemy.word}-word`);
-    this.scene.remove(object);
-    this.scene.remove(object2);
-
     this.enemies.delete(enemy);
-  }
-
-  deleteBullet(bullet) {
-    const object = this.scene.getObjectByName(bullet.name);
-    this.scene.remove(object);
-
-    this.bullets.delete(bullet);
+    enemy.deleteEnemy();
   }
 
   killEnemy(enemy) {
-    const bullet = new Bullet(this.scene, this.playerPos, enemy.enemy.scene.position, this.speed, enemy.word);
-    this.bullets.add(bullet);
-    this.bulletEnemy = {
-        [enemy.word]: [enemy, bullet]
-    }
+    enemy.shootEnemy();
   }
 
   updateEnemy() {
     let hit = false;
     this.enemies.forEach((enemy) => {
-      if (enemy.updatePos()) {
-        hit = true;
-        this.deleteEnemy(enemy);
-      }  
-      else if (this.bulletEnemy[enemy.word]) {
-        if (this.bulletEnemy[enemy.word][0].enemy.scene.position.z > this.bulletEnemy[enemy.word][1].bullet.position.z) {
-            this.deleteEnemy(enemy);
-            this.deleteBullet(this.bulletEnemy[enemy.word][1]);
-            delete this.bulletEnemy[enemy]; 
-        }
+      switch (enemy.updatePos()) {
+        case "KILL":
+          this.deleteEnemy(enemy);
+          break;
+        case "HIT":
+          hit = true;
+          this.deleteEnemy(enemy);
       }
     });
-
-    this.bullets.forEach(bullet => {
-        bullet.updatePos();
-    });
-
     return hit;
   }
 }

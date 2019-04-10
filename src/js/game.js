@@ -113,10 +113,7 @@ export default class Game {
   update() {
     this.player.update();
 
-    let isHit = this.enemies.updateEnemy();
-    if (isHit) {
-      this.player.isHit();
-    }
+    if (this.enemies.updateEnemy()) this.player.isHit();
     this.starfield.animateStars();
     this.checkGuess();
     requestAnimationFrame(this.animate.bind(this));

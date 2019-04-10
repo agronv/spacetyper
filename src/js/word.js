@@ -3,8 +3,9 @@ class Word {
     this.scene = scene;
     this.position = position;
     this.word = word;
-    this.createText = this.createText.bind(this);
     this.offset = { x : this.word.length/2, y: 1.5 , z: 0.5 }
+    
+    this.createText = this.createText.bind(this);
     this.startWord();
   }
 
