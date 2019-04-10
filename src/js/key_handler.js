@@ -1,9 +1,11 @@
 class KeyHandler {
   constructor(enemies, game) {
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.enemies = enemies;
     this.game = game;
     this.guess = "";
+    this.keyField = document.getElementById("text-field");
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     window.onkeydown = this.handleKeyDown;
   }
 
@@ -34,9 +36,12 @@ class KeyHandler {
         } else if (e.keyCode === 15) {
           // Enter
           this.clearGuess();
+        } else if (e.keyCode === 8) {
+          // Backspace
+          this.guess = this.guess.slice(0,-1)
         }
-      }
-
+      } 
+      this.keyField.innerText = this.guess;
     }
   }
 }

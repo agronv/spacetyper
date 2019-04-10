@@ -136,3 +136,11 @@ div.divider {
 #game-over.visible, #directions.visible {
   opacity: 1;
 }
+
+#text-field {
+  display: inline-block;
+  opacity: 1;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
