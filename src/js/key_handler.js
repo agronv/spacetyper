@@ -11,7 +11,9 @@ class KeyHandler {
 
   clearGuess() {
     this.guess = "";
-    this.keyField.innerText = this.guess;
+    setInterval(() => {
+      this.keyField.innerText = this.guess;
+    }, 150);
   }
 
   handleKeyDown(e) {
