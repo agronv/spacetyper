@@ -17,7 +17,7 @@ export default class Game {
     this.scene = new THREE.Scene();
     this.speed = 400;
     this.playerPosition = {x: 0, y: -5, z: -15};
-    this.enemyStartPos = -50;
+    this.enemyStartPos = -60;
     this.camera.position.z = 0;
     this.player = new Player(this.scene, this.playerPosition, this);
     this.trie = new Trie();
