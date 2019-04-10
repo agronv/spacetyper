@@ -1,13 +1,15 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bullet) {
         this.enemies = new Set();
         this.speed = speed;
         this.startPos = startPos;
         this.playerPos = playerPos;
         this.view = view;
         this.enemyTemplate = enemyTemplate;
+        this.font = font;
+        this.bullet = bullet;
         this.positions = this.setPositions();
         this.scene = scene; 
         this.trie = trie;
@@ -42,7 +44,7 @@ export default class Enemies {
       i++;
       let random = Math.floor(Math.random() * this.positions.length);
       let position = this.positions[random]
-      let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, i);
+      let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bullet);
       this.enemies.add(enemy);
     }, 2000 / this.difficulty);
   }

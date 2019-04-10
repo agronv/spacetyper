@@ -4,7 +4,10 @@ import Starfield from './starfield';
 import Trie from './trie';
 import KeyHandler from './key_handler';
 import Timer from './timer';
+// import 'three/examples/js/loaders/FontLoader';
+// import * as THREE from 'three';
 import 'three/examples/js/loaders/GLTFLoader';
+
 
 import { addHighscore, getHighscores } from './firebase';
 
@@ -49,16 +52,24 @@ export default class Game {
     
     this.getScores();
     
-    // this.loader = new THREE.GLTFLoader();
-    // this.loader.load('src/models/enemy/scene.gltf', (enemy) => {
-    //   this.enemyTemplate = enemy.scene;
-      this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate);
-      this.trie.addEnemies(this.enemies);
-      this.keyHandler = new KeyHandler(this.enemies, this);
-      this.animate();
-  //   }, undefined, function (error) {
-  //     console.error(error);
-  //   });
+    this.loader = new THREE.GLTFLoader();
+    this.loader.load('src/models/enemy/scene.gltf', (enemy) => {
+      this.enemyTemplate = enemy.scene;
+      const fontLoader = new THREE.FontLoader();
+      fontLoader.load( 'src/fonts/Roboto_Regular.json', (font) => {
+        this.font = font;
+        const bulletLoader = new THREE.GLTFLoader()
+        bulletLoader.load('src/models/bullet/scene.gltf', (bullet) => {
+          this.bullet = bullet.scene;
+          this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bullet);
+          this.trie.addEnemies(this.enemies);
+          this.keyHandler = new KeyHandler(this.enemies, this);
+          this.animate();
+        })
+      })
+    }, undefined, function (error) {
+      console.error(error);
+    });
   }
 
   getScores() {

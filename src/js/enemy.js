@@ -1,38 +1,30 @@
-import 'three/examples/js/loaders/GLTFLoader';
 import dictionary from './dictionary.json';
 import Word from './word';
 import Bullet from './bullet';
 
 export default class Enemy {
-  constructor(position, scene, speed, playerPos, trie) {
+  constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bullet) {
     this.position = position;
     this.scene = scene;
     this.speed = speed;
     this.playerPos = playerPos;
     this.trie = trie;
+    this.font = font;
+    this.bullet = bullet;
+    this.enemy = enemyTemplate.clone();
+
     this.changeX = -1 * (this.position.x - this.playerPos.x) / this.speed;
     this.changeY = -1 * (this.position.y - this.playerPos.y - 1) / this.speed;
     this.changeZ = -1 * (this.position.z - this.playerPos.z) / this.speed;
     this.word = dictionary[Math.floor(Math.random() * dictionary.length)];
     this.bullet = null;
 
-    this.setEnemy = this.setEnemy.bind(this);
     this.startEnemy();
   }
   
   startEnemy() {
-    this.wordObject = new Word(this.scene, this.position, this.word);
+    this.wordObject = new Word(this.scene, this.position, this.word, this.font);
 
-    var loader = new THREE.GLTFLoader();
-    loader.load('src/models/enemy/scene.gltf', this.setEnemy, undefined, function (error) {
-      console.error(error);
-    });
-
-    this.trie.insert(this.wordObject, this);
-  }
-
-  setEnemy(enemy) {
-    this.enemy = enemy.scene;
     this.enemy.position.x = this.position.x;
     this.enemy.position.y = this.position.y;
     this.enemy.position.z = this.position.z;
@@ -40,10 +32,12 @@ export default class Enemy {
     this.enemy.lookAt( 0, 0, 20);
     this.scene.add(this.enemy);
     this.enemy.children[0].scale.set(.005, .005, .005);
+
+    this.trie.insert(this.wordObject, this);
   }
 
   shootEnemy() {
-    this.bullet = new Bullet(this.scene, this.playerPos, this.enemy.position, this.speed, this.word)
+    this.bullet = new Bullet(this.scene, this.playerPos, this.enemy.position, this.speed, this.word, this.font, this.bullet)
   }
 
   deleteEnemy() {

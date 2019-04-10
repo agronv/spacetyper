@@ -1,11 +1,12 @@
+
 class Word {
-  constructor(scene, position, word) {
+  constructor(scene, position, word, font) {
     this.scene = scene;
     this.position = position;
     this.word = word;
+    this.font = font;
     this.offset = { x : this.word.length/2, y: 1.5 , z: 0.5 }
     
-    this.createText = this.createText.bind(this);
     this.startWord();
   }
 
@@ -16,13 +17,8 @@ class Word {
   }
 
   startWord() {
-    var loader = new THREE.FontLoader();
-    loader.load( 'src/fonts/Roboto_Regular.json', this.createText)
-  }
-
-  createText(font) {
     var textGeo = new THREE.TextGeometry( this.word, {
-      font: font,
+      font: this.font,
       size: 1,
       height: 0.1,
     });
