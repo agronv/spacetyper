@@ -4,35 +4,38 @@ import Starfield from './starfield';
 import Trie from './trie';
 import KeyHandler from './key_handler';
 import Timer from './timer';
+import 'three/examples/js/loaders/GLTFLoader';
 
 import { addHighscore, getHighscores } from './firebase';
 
-
 export default class Game {
   constructor() {
-    this.timer = new Timer();
-    this.playing = false;
     this.fieldOfView = 50;
-    this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.scene = new THREE.Scene();
     this.speed = 400;
     this.playerPosition = {x: 0, y: -5, z: -15};
     this.enemyStartPos = -60;
-    this.camera.position.z = 0;
-    this.player = new Player(this.scene, this.playerPosition, this);
-    this.trie = new Trie();
-    this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie);
-    this.trie.addEnemies(this.enemies);
-    this.starfield = new Starfield(this.scene);
-    this.keyHandler = new KeyHandler(this.enemies, this);
+    this.playing = false;
+    this.highscores = {};
+    
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.scene.background = new THREE.Color(0x000000);
-    this.highscores = {};
+    document.body.appendChild(this.renderer.domElement);
 
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0x000000);
+
+    this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera.position.z = 0;
+
+    
+    this.timer = new Timer();
+    this.trie = new Trie();
+    this.player = new Player(this.scene, this.playerPosition, this);
+    this.starfield = new Starfield(this.scene);
+    
     const highscoreForm = document.getElementById('highscore-form');
     const nameInput = document.getElementById('name-input');
-
+    
     highscoreForm.addEventListener("submit", (e) => {
       e.preventDefault();
       if (nameInput.value !== "" && this.timer.time > 0) {
@@ -45,8 +48,17 @@ export default class Game {
     });
     
     this.getScores();
-
-    document.body.appendChild(this.renderer.domElement);
+    
+    // this.loader = new THREE.GLTFLoader();
+    // this.loader.load('src/models/enemy/scene.gltf', (enemy) => {
+    //   this.enemyTemplate = enemy.scene;
+      this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate);
+      this.trie.addEnemies(this.enemies);
+      this.keyHandler = new KeyHandler(this.enemies, this);
+      this.animate();
+  //   }, undefined, function (error) {
+  //     console.error(error);
+  //   });
   }
 
   getScores() {

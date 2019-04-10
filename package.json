@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "firebase": "^5.9.3",
+    "lodash": "^4.17.11",
     "three": "^0.103.0"
   }
 }
