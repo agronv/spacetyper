@@ -93,6 +93,7 @@ export default class Game {
     document.getElementById('highscores').classList.add('visible');
     document.getElementById('directions').classList.add('visible');
     document.getElementById('game-over').classList.add('visible');
+    document.getElementById('text-field-container').classList.remove('visible');
   }
 
   startGame() {
@@ -101,6 +102,7 @@ export default class Game {
     this.enemies.spawnEnemies();
     this.timer.turnOn();
 
+    document.getElementById('text-field-container').classList.add('visible');
     document.getElementById('highscores').classList.remove('visible');
     document.getElementById('game-over').classList.remove('visible');
     document.getElementById('directions').classList.remove('visible');
