@@ -44,9 +44,9 @@ export default class Enemies {
       this.difficultyInterval = setInterval(() => {
         this.stopSpawning();
   
-        this.spawnRate /= 1.05;
+        this.spawnRate /= 1.1;
         this.spawnEnemies();
-      }, 20000);
+      }, 22000);
     }, 1000)
   }
 
@@ -59,7 +59,7 @@ export default class Enemies {
       this.spawnInterval = setInterval(() => {
         this.waveTitle.classList.remove("visible");
         let random = Math.floor(Math.random() * this.positions.length);
-        let position = this.positions[random]
+        let position = this.positions[random];
         let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
         this.enemies.add(enemy);
       }, this.spawnRate);
@@ -67,7 +67,6 @@ export default class Enemies {
   }
 
   stopSpawning() {
-    clearInterval(this.difficultyInterval);
     clearInterval(this.waveCounter);
     clearInterval(this.spawnInterval);
 
@@ -80,6 +79,7 @@ export default class Enemies {
     this.waveTitle.classList.remove("visible");
     this.waveCount = 0;
     this.spawnRate = 2000;
+    clearInterval(this.difficultyInterval);
     this.stopSpawning();
   }
 
