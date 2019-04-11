@@ -1,7 +1,7 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, spawnRate) {
         this.enemies = new Set();
         this.speed = speed;
         this.startPos = startPos;
@@ -9,6 +9,7 @@ export default class Enemies {
         this.view = view;
         this.enemyTemplate = enemyTemplate;
         this.font = font;
+        this.spawnRate = spawnRate;
         this.bulletTemplate = bulletTemplate;
         this.positions = this.setPositions();
         this.scene = scene; 
@@ -34,17 +35,23 @@ export default class Enemies {
   }
 
   spawnEnemies() {
-    this.spawnRate = 2000;
-
-    this.difficultyInterval = setInterval(() => {
-      this.spawnRate /= 1.2;
-    }, 8000);
     this.spawnInterval = setInterval(() => {
       let random = Math.floor(Math.random() * this.positions.length);
       let position = this.positions[random]
       let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
       this.enemies.add(enemy);
     }, this.spawnRate);
+
+    this.difficultyInterval = setInterval(() => {
+      this.spawnRate /= 1.2;
+      clearInterval(this.spawnInterval);
+      this.spawnInterval = setInterval(() => {
+        let random = Math.floor(Math.random() * this.positions.length);
+        let position = this.positions[random]
+        let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
+        this.enemies.add(enemy);
+      }, this.spawnRate);
+    }, 20000);
   }
 
   stopSpawning() {
