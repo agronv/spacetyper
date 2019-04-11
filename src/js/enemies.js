@@ -1,7 +1,7 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, spawnRate) {
         this.enemies = new Set();
         this.speed = speed;
         this.startPos = startPos;
@@ -9,10 +9,13 @@ export default class Enemies {
         this.view = view;
         this.enemyTemplate = enemyTemplate;
         this.font = font;
+        this.spawnRate = spawnRate;
+        this.waveCount = 0;
         this.bulletTemplate = bulletTemplate;
         this.positions = this.setPositions();
         this.scene = scene; 
         this.trie = trie;
+        this.waveTitle = document.getElementById('wave-count');
     }
 
   cancelColor() {
@@ -33,27 +36,51 @@ export default class Enemies {
     return positions;
   }
 
-  spawnEnemies() {
-    this.spawnRate = 2000;
+  startGame() {
+    this.initialInterval = setInterval(() => {
+      clearInterval(this.initialInterval);
+      this.spawnEnemies();
+  
+      this.difficultyInterval = setInterval(() => {
+        this.stopSpawning();
+  
+        this.spawnRate /= 1.1;
+        this.spawnEnemies();
+      }, 22000);
+    }, 1000)
+  }
 
-    this.difficultyInterval = setInterval(() => {
-      this.spawnRate /= 1.2;
-    }, 8000);
-    this.spawnInterval = setInterval(() => {
-      let random = Math.floor(Math.random() * this.positions.length);
-      let position = this.positions[random]
-      let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
-      this.enemies.add(enemy);
-    }, this.spawnRate);
+  spawnEnemies() {
+    this.waveCount++;
+    this.waveTitle.innerText = `WAVE ${this.waveCount}`;
+    this.waveTitle.classList.add("visible");
+    this.waveCounter = setInterval(() => {
+      clearInterval(this.waveCounter);
+      this.spawnInterval = setInterval(() => {
+        this.waveTitle.classList.remove("visible");
+        let random = Math.floor(Math.random() * this.positions.length);
+        let position = this.positions[random];
+        let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
+        this.enemies.add(enemy);
+      }, this.spawnRate);
+    }, 2000);
   }
 
   stopSpawning() {
-    clearInterval(this.difficultyInterval);
+    clearInterval(this.waveCounter);
     clearInterval(this.spawnInterval);
 
     this.enemies.forEach(enemy => {
       this.deleteEnemy(enemy)
     })
+  }
+
+  endGame() {
+    this.waveTitle.classList.remove("visible");
+    this.waveCount = 0;
+    this.spawnRate = 2000;
+    clearInterval(this.difficultyInterval);
+    this.stopSpawning();
   }
 
   deleteEnemy(enemy) {

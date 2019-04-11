@@ -14,9 +14,9 @@ export default class Player {
   }
 
   isHit() {
+    this.health--;
     const object = this.scene.getObjectByName(`heart-${this.health}`);
     this.scene.remove(object);
-    this.health--;
 
     if (this.health <= 0) this.game.gameOver();
   }

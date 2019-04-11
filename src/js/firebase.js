@@ -22,5 +22,5 @@ export const addHighscore = (name, time) => {
 };
 
 export const getHighscores = () => {
-  return highscores.orderBy("time", "desc").limit(10).get();
+  return highscores.orderBy("time", "desc").limit(5).get();
 }
