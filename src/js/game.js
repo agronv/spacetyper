@@ -1,24 +1,22 @@
+import Trie from './trie';
+import Timer from './timer';
 import Player from './player';
 import Enemies from './enemies';
 import Starfield from './starfield';
-import Trie from './trie';
 import KeyHandler from './key_handler';
-import Timer from './timer';
+import 'three/examples/js/loaders/GLTFLoader';
+import { addHighscore, getHighscores } from './firebase';
 // import 'three/examples/js/loaders/FontLoader';
 // import * as THREE from 'three';
-import 'three/examples/js/loaders/GLTFLoader';
-
-
-import { addHighscore, getHighscores } from './firebase';
 
 export default class Game {
   constructor() {
-    this.fieldOfView = 50;
     this.speed = 400;
-    this.playerPosition = {x: 0, y: -5, z: -15};
-    this.enemyStartPos = -60;
-    this.playing = false;
     this.highscores = {};
+    this.playing = false;
+    this.fieldOfView = 50;
+    this.enemyStartPos = -60;
+    this.playerPosition = {x: 0, y: -5, z: -15};
     
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -35,13 +33,13 @@ export default class Game {
     // spotlight.power = 40;
     // this.scene.add(spotlight);
     
-    this.timer = new Timer();
     this.trie = new Trie();
-    this.player = new Player(this.scene, this.playerPosition, this);
+    this.timer = new Timer();
     this.starfield = new Starfield(this.scene);
+    this.player = new Player(this.scene, this.playerPosition, this);
     
-    const highscoreForm = document.getElementById('highscore-form');
     const nameInput = document.getElementById('name-input');
+    const highscoreForm = document.getElementById('highscore-form');
     
     highscoreForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -66,10 +64,12 @@ export default class Game {
         bulletLoader.load('src/models/bullet/Tomahawk Missile.gltf', (bullet) => {
           this.bulletTemplate = bullet.scene.children[0];
           this.bulletTemplate.scale.set( 0.15, 0.15, 0.15);
+
           this.enemies = new Enemies(this.scene, this.speed, 
             this.fieldOfView, this.enemyStartPos, 
             this.playerPosition, this.trie,
             this.enemyTemplate, this.font, this.bulletTemplate);
+
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
           this.animate();
