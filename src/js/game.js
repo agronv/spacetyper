@@ -15,7 +15,6 @@ export default class Game {
   constructor() {
     this.fieldOfView = 50;
     this.speed = 400;
-    this.spawnRate = 2000;
     this.playerPosition = {x: 0, y: -5, z: -15};
     this.enemyStartPos = -60;
     this.playing = false;
@@ -67,7 +66,10 @@ export default class Game {
         bulletLoader.load('src/models/bullet/Tomahawk Missile.gltf', (bullet) => {
           this.bulletTemplate = bullet.scene.children[0];
           this.bulletTemplate.scale.set( 0.15, 0.15, 0.15);
-          this.enemies = new Enemies(this.scene, this.speed, this.fieldOfView, this.enemyStartPos, this.playerPosition, this.trie, this.enemyTemplate, this.font, this.bulletTemplate, this.spawnRate);
+          this.enemies = new Enemies(this.scene, this.speed, 
+            this.fieldOfView, this.enemyStartPos, 
+            this.playerPosition, this.trie,
+            this.enemyTemplate, this.font, this.bulletTemplate);
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
           this.animate();
