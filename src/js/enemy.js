@@ -4,20 +4,21 @@ import Bullet from './bullet';
 
 export default class Enemy {
   constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bulletTemplate) {
-    this.position = position;
-    this.scene = scene;
-    this.speed = speed;
-    this.playerPos = playerPos;
     this.trie = trie;
     this.font = font;
-    this.bulletTemplate = bulletTemplate;
+    this.bullet = null;
+    this.scene = scene;
     this.enemy = enemyTemplate.clone();
+    this.bulletTemplate = bulletTemplate;
+
+    this.speed = speed;
+    this.position = position;
+    this.playerPos = playerPos;
+    this.word = dictionary[Math.floor(Math.random() * dictionary.length)];
 
     this.changeX = -1 * (this.position.x - this.playerPos.x) / this.speed;
-    this.changeY = -1 * (this.position.y - this.playerPos.y - 1) / this.speed;
     this.changeZ = -1 * (this.position.z - this.playerPos.z) / this.speed;
-    this.word = dictionary[Math.floor(Math.random() * dictionary.length)];
-    this.bullet = null;
+    this.changeY = -1 * (this.position.y - this.playerPos.y - 1) / this.speed;
 
     this.startEnemy();
   }
