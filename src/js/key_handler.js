@@ -1,8 +1,8 @@
 class KeyHandler {
   constructor(enemies, game) {
-    this.enemies = enemies;
-    this.game = game;
     this.guess = "";
+    this.game = game;
+    this.enemies = enemies;
     this.keyField = document.getElementById("text-field");
 
     this.handleKeyDown = this.handleKeyDown.bind(this);

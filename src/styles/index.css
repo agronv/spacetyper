@@ -73,7 +73,7 @@ h1 {
   top: 42%;
   left: 50%;
   transform: translateX(-50%);
-  color: #FF0000;
+  color: #FF1B0F;
   transition: opacity 2s ease;
   pointer-events: none;
 }
@@ -165,5 +165,5 @@ div.divider {
 }
 
 #text-field.blue {
-  color: rgb(24, 251, 255);
+  color: #12EDFD;
 }
