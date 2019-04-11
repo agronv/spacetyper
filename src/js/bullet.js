@@ -2,16 +2,18 @@ import 'three/examples/js/loaders/GLTFLoader';
 
 export default class Bullet {
   constructor(scene, startPos, endPos, speed, word, bulletTemplate) {
-    this.scene = scene;
-    this.startPos = startPos;
-    this.endPos = endPos;
-    this.speed = speed;
     this.word = word;
+    this.scene = scene;
+    this.speed = speed;
+    this.endPos = endPos;
+    this.startPos = startPos;
+    this.name = `${this.word}-bullet`
     this.bullet = bulletTemplate.clone()
+
     this.changeX = (this.endPos.x - this.startPos.x) / this.speed*10; 
     this.changeY = (this.endPos.y - this.startPos.y-1) / this.speed*10; 
     this.changeZ = (this.endPos.z - this.startPos.z+1) / this.speed*10; 
-    this.name = `${this.word}-bullet`
+
     this.startBullet();
   }
   
