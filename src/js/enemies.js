@@ -2,17 +2,17 @@ import Enemy from './enemy';
 
 export default class Enemies {
     constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate) {
-      this.scene = scene; 
+      this.font = font;
       this.trie = trie;
+      this.scene = scene; 
       this.enemyTemplate = enemyTemplate;
       this.bulletTemplate = bulletTemplate;
-      this.font = font;
       
       this.view = view;
       this.speed = speed;
       this.startPos = startPos;
-      this.playerPos = playerPos;
       this.enemies = new Set();
+      this.playerPos = playerPos;
       this.positions = this.setPositions();
 
       this.waveCount = 0;
@@ -50,9 +50,9 @@ export default class Enemies {
       this.difficultyInterval = setInterval(() => {
         this.stopSpawning();
   
-        this.spawnRate /= 1.1;
+        this.spawnRate /= this.difficultyMultiplier;
         this.spawnEnemies();
-      }, 22000);
+      }, this.waveDuration + this.waveTitleDuration);
     }, 1000)
   }
 
@@ -69,7 +69,7 @@ export default class Enemies {
         let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
         this.enemies.add(enemy);
       }, this.spawnRate);
-    }, 2000);
+    }, this.waveTitleDuration);
   }
 
   stopSpawning() {
