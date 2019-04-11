@@ -77,6 +77,7 @@ export default class Enemies {
   }
 
   endGame() {
+    this.waveTitle.classList.remove("visible");
     this.waveCount = 0;
     this.spawnRate = 2000;
     this.stopSpawning();
