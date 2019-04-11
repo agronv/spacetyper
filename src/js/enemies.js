@@ -1,21 +1,27 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, spawnRate) {
-        this.enemies = new Set();
-        this.speed = speed;
-        this.startPos = startPos;
-        this.playerPos = playerPos;
-        this.view = view;
-        this.enemyTemplate = enemyTemplate;
-        this.font = font;
-        this.spawnRate = spawnRate;
-        this.waveCount = 0;
-        this.bulletTemplate = bulletTemplate;
-        this.positions = this.setPositions();
-        this.scene = scene; 
-        this.trie = trie;
-        this.waveTitle = document.getElementById('wave-count');
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate) {
+      this.font = font;
+      this.trie = trie;
+      this.scene = scene; 
+      this.enemyTemplate = enemyTemplate;
+      this.bulletTemplate = bulletTemplate;
+      
+      this.view = view;
+      this.speed = speed;
+      this.startPos = startPos;
+      this.enemies = new Set();
+      this.playerPos = playerPos;
+      this.positions = this.setPositions();
+
+      this.waveCount = 0;
+      this.spawnRate = 2000;
+      this.waveDuration = 30000;
+      this.waveTitleDuration = 2000;
+      this.difficultyMultiplier = 1.15;
+
+      this.waveTitle = document.getElementById('wave-count');
     }
 
   cancelColor() {
@@ -44,9 +50,9 @@ export default class Enemies {
       this.difficultyInterval = setInterval(() => {
         this.stopSpawning();
   
-        this.spawnRate /= 1.1;
+        this.spawnRate /= this.difficultyMultiplier;
         this.spawnEnemies();
-      }, 22000);
+      }, this.waveDuration + this.waveTitleDuration);
     }, 1000)
   }
 
@@ -63,7 +69,7 @@ export default class Enemies {
         let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
         this.enemies.add(enemy);
       }, this.spawnRate);
-    }, 2000);
+    }, this.waveTitleDuration);
   }
 
   stopSpawning() {

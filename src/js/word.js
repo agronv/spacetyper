@@ -1,11 +1,11 @@
 
 class Word {
   constructor(scene, position, word, font) {
-    this.scene = scene;
-    this.position = position;
     this.word = word;
     this.font = font;
-    this.offset = { x : this.word.length/2, y: 1.5 , z: 0.5 }
+    this.scene = scene;
+    this.position = position;
+    this.offset = { x : this.word.length/2.5, y: 2 , z: -0.5 }
     
     this.startWord();
   }
