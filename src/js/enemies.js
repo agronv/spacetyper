@@ -37,14 +37,17 @@ export default class Enemies {
   }
 
   startGame() {
-    this.spawnEnemies();
-
-    this.difficultyInterval = setInterval(() => {
-      this.stopSpawning();
-
-      this.spawnRate /= 1.05;
+    this.initialInterval = setInterval(() => {
+      clearInterval(this.initialInterval);
       this.spawnEnemies();
-    }, 20000);
+  
+      this.difficultyInterval = setInterval(() => {
+        this.stopSpawning();
+  
+        this.spawnRate /= 1.05;
+        this.spawnEnemies();
+      }, 20000);
+    }, 1000)
   }
 
   spawnEnemies() {
@@ -71,6 +74,12 @@ export default class Enemies {
     this.enemies.forEach(enemy => {
       this.deleteEnemy(enemy)
     })
+  }
+
+  endGame() {
+    this.waveCount = 0;
+    this.spawnRate = 2000;
+    this.stopSpawning();
   }
 
   deleteEnemy(enemy) {

@@ -114,7 +114,7 @@ export default class Game {
   gameOver() {
     this.playing = false;
     this.keyHandler.clearGuess();
-    this.enemies.stopSpawning();
+    this.enemies.endGame();
     this.timer.turnOff();
     this.getScores();
 
@@ -127,7 +127,6 @@ export default class Game {
 
   startGame() {
     this.playing = true;
-    this.enemies.spawnRate = 2000;
     this.player.restartHealth(); 
     this.enemies.startGame();
     this.timer.turnOn();
