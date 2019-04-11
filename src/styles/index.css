@@ -139,7 +139,7 @@ div.divider {
   background-color: #FFFFFF;
 }
 
-#game-over.visible, #directions.visible, #text-field-container.visible {
+#game-over.visible, #directions.visible, #text-field-container.visible, #wave-count.visible {
   opacity: 1;
 }
 

@@ -129,7 +129,7 @@ export default class Game {
     this.playing = true;
     this.enemies.spawnRate = 2000;
     this.player.restartHealth(); 
-    this.enemies.spawnEnemies();
+    this.enemies.startGame();
     this.timer.turnOn();
 
     document.getElementById('text-field-container').classList.add('visible');

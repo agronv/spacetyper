@@ -10,10 +10,12 @@ export default class Enemies {
         this.enemyTemplate = enemyTemplate;
         this.font = font;
         this.spawnRate = spawnRate;
+        this.waveCount = 0;
         this.bulletTemplate = bulletTemplate;
         this.positions = this.setPositions();
         this.scene = scene; 
         this.trie = trie;
+        this.waveTitle = document.getElementById('wave-count');
     }
 
   cancelColor() {
@@ -34,28 +36,36 @@ export default class Enemies {
     return positions;
   }
 
-  spawnEnemies() {
-    this.spawnInterval = setInterval(() => {
-      let random = Math.floor(Math.random() * this.positions.length);
-      let position = this.positions[random]
-      let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
-      this.enemies.add(enemy);
-    }, this.spawnRate);
+  startGame() {
+    this.spawnEnemies();
 
     this.difficultyInterval = setInterval(() => {
-      this.spawnRate /= 1.2;
-      clearInterval(this.spawnInterval);
+      this.stopSpawning();
+
+      this.spawnRate /= 1.05;
+      this.spawnEnemies();
+    }, 20000);
+  }
+
+  spawnEnemies() {
+    this.waveCount++;
+    this.waveTitle.innerText = `WAVE ${this.waveCount}`;
+    this.waveTitle.classList.add("visible");
+    this.waveCounter = setInterval(() => {
+      clearInterval(this.waveCounter);
       this.spawnInterval = setInterval(() => {
+        this.waveTitle.classList.remove("visible");
         let random = Math.floor(Math.random() * this.positions.length);
         let position = this.positions[random]
         let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
         this.enemies.add(enemy);
       }, this.spawnRate);
-    }, 20000);
+    }, 2000);
   }
 
   stopSpawning() {
     clearInterval(this.difficultyInterval);
+    clearInterval(this.waveCounter);
     clearInterval(this.spawnInterval);
 
     this.enemies.forEach(enemy => {
