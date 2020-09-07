@@ -3,7 +3,7 @@ export default class Audio {
     this.audio = document.createElement("audio");
     this.audio.src = "https://notefloat.s3.amazonaws.com/Synthwave_D.mp3";
     this.audio.loop = true;
-    this.lowVolume = 0.5;
+    this.lowVolume = 0.4;
     this.highVolume = 1.0;
     this.audio.volume = this.lowVolume;
 
