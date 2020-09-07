@@ -8,7 +8,7 @@ export default class Audio {
     this.audio.volume = this.lowVolume;
 
     this.volumeIcon = document.getElementById('volume');
-    this.volumeIcon.onclick = this.onClick.bind(this)
+    this.volumeIcon.onclick = this.onClick.bind(this);
   }
 
   onClick() {
