@@ -21,12 +21,12 @@
   "homepage": "https://github.com/stephenchung27/hack-attack#readme",
   "devDependencies": {
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "firebase": "^5.9.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "three": "^0.103.0"
   }
 }
