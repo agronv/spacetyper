@@ -8,7 +8,7 @@ export default class Hearts {
   }
 
   spawnHearts() {
-    for (let i = 0; i < this.health; i++) {
+    for (let i = 0; i < 3; i++) {
       let heart = new Heart(this.scene, i);
       this.hearts.push(heart)
     }

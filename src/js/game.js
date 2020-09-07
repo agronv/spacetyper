@@ -79,6 +79,14 @@ export default class Game {
     }, undefined, function (error) {
       console.error(error);
     });
+
+    window.onresize = this.resize1.bind(this)
+  }
+
+  resize1() {
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera.position.z = 0;
   }
 
   getScores() {

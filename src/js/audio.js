@@ -12,7 +12,6 @@ export default class Audio {
   }
 
   onClick() {
-    console.log(this.audio.muted)
     this.audio.muted = !this.audio.muted;
     if (this.audio.muted) {
       this.volumeIcon.src = "./public/images/mute.png"
