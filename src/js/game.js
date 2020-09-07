@@ -2,6 +2,7 @@ import Trie from './trie';
 import Timer from './timer';
 import Player from './player';
 import Enemies from './enemies';
+import Audio from './audio';
 import Starfield from './starfield';
 import KeyHandler from './key_handler';
 import 'three/examples/js/loaders/GLTFLoader';
@@ -17,7 +18,7 @@ export default class Game {
     this.fieldOfView = 50;
     this.enemyStartPos = -60;
     this.playerPosition = {x: 0, y: -5, z: -15};
-    
+    this.audio = new Audio()
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
@@ -68,7 +69,7 @@ export default class Game {
           this.enemies = new Enemies(this.scene, this.speed, 
             this.fieldOfView, this.enemyStartPos, 
             this.playerPosition, this.trie,
-            this.enemyTemplate, this.font, this.bulletTemplate);
+            this.enemyTemplate, this.font, this.bulletTemplate, this.audio);
 
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
@@ -115,6 +116,7 @@ export default class Game {
 
   gameOver() {
     this.playing = false;
+    this.audio.lowerVolume()
     this.keyHandler.clearGuess();
     this.enemies.endGame();
     this.timer.turnOff();
@@ -129,6 +131,7 @@ export default class Game {
 
   startGame() {
     this.playing = true;
+    this.audio.play();
     this.player.restartHealth(); 
     this.enemies.startGame();
     this.timer.turnOn();
