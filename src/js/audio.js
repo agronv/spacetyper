@@ -6,6 +6,19 @@ export default class Audio {
     this.lowVolume = 0.5;
     this.highVolume = 1.0;
     this.audio.volume = this.lowVolume;
+
+    this.volumeIcon = document.getElementById('volume');
+    this.volumeIcon.onclick = this.onClick.bind(this)
+  }
+
+  onClick() {
+    console.log(this.audio.muted)
+    this.audio.muted = !this.audio.muted;
+    if (this.audio.muted) {
+      this.volumeIcon.src = "./public/images/mute.png"
+    } else {
+      this.volumeIcon.src = "./public/images/volume.png"
+    }
   }
 
   play() {
@@ -32,7 +45,6 @@ export default class Audio {
     let tick = 1;
     return new Promise((resolve) => {
       const timer = setInterval(() => {
-        console.log(this.audio.volume)
         this.audio.volume = originalVolume + (
           this.swing(tick / ticks) * delta
         );

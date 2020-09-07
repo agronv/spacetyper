@@ -109,10 +109,6 @@ div#highscores {
   opacity: 0;
 }
 
-#highscores.visible {
-  opacity: 1;
-}
-
 input {
   box-sizing: border-box;
   border-radius: 5px;
@@ -139,7 +135,7 @@ div.divider {
   background-color: #FFFFFF;
 }
 
-#game-over.visible, #directions.visible, #text-field-container.visible, #wave-count.visible {
+#game-over.visible, #directions.visible, #text-field-container.visible, #wave-count.visible, #highscores.visible {
   opacity: 1;
 }
 
@@ -166,4 +162,12 @@ div.divider {
 
 #text-field.blue {
   color: #12EDFD;
+}
+
+img {
+  height: 35px;
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
 }
