@@ -164,6 +164,10 @@ div.divider {
   color: #12EDFD;
 }
 
+#text-field.red {
+  color: #fd5112;
+}
+
 img {
   height: 35px;
   position: fixed;

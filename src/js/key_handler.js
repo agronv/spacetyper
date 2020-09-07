@@ -19,6 +19,16 @@ class KeyHandler {
     }, 225);
   }
 
+  deleteGuess() {
+    this.guess = "";
+    this.keyField.classList.add('red');
+    const interval = setInterval(() => {
+      this.keyField.innerText = this.guess;
+      this.keyField.classList.remove('red');
+      clearInterval(interval);
+    }, 225);
+  }
+
   handleKeyDown(e) {
     if (e.target.id !== "name-input") {
       e.preventDefault();
@@ -41,9 +51,9 @@ class KeyHandler {
         } else if (e.keyCode === 27) {
           // Escape
 
-        } else if (e.keyCode === 15) {
+        } else if (e.keyCode === 13) {
           // Enter
-          this.clearGuess();
+          this.deleteGuess();
         } else if (e.keyCode === 8) {
           // Backspace
           this.guess = this.guess.slice(0,-1);
