@@ -1,13 +1,12 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, audio) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate) {
       this.font = font;
       this.trie = trie;
       this.scene = scene; 
       this.enemyTemplate = enemyTemplate;
       this.bulletTemplate = bulletTemplate;
-      this.audio = audio;
       
       this.view = view;
       this.speed = speed;
@@ -61,12 +60,10 @@ export default class Enemies {
     this.waveCount++;
     this.waveTitle.innerText = `WAVE ${this.waveCount}`;
     this.waveTitle.classList.add("visible");
-    this.audio.lowerVolume();
     this.waveCounter = setInterval(() => {
       clearInterval(this.waveCounter);
       this.spawnInterval = setInterval(() => {
         this.waveTitle.classList.remove("visible");
-        this.audio.raiseVolume();
         let random = Math.floor(Math.random() * this.positions.length);
         let position = this.positions[random];
         let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);

@@ -2,7 +2,7 @@
 
 [Live Demo][link]
 
-[link]: https://agronv.github.io/spacetyper/
+[link]: http://stephenchung.io/hack-attack/
 
 ## Inspiration
 One of the main barriers to becoming an efficient software developer is having a good typing speed. We built this game to help children and those who didn't grow up using computers improve their typing speed, so everyone can be on an even playing field.
