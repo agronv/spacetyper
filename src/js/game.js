@@ -3,6 +3,7 @@ import Timer from './timer';
 import Player from './player';
 import Enemies from './enemies';
 import Audio from './audio';
+import Explosion from './explosion';
 import Starfield from './starfield';
 import KeyHandler from './key_handler';
 import 'three/examples/js/loaders/GLTFLoader';
@@ -38,6 +39,7 @@ export default class Game {
     this.timer = new Timer();
     this.starfield = new Starfield(this.scene);
     this.player = new Player(this.scene, this.playerPosition, this);
+    this.explosion = new Explosion(this.scene);
     
     const nameInput = document.getElementById('name-input');
     const highscoreForm = document.getElementById('highscore-form');
@@ -69,7 +71,7 @@ export default class Game {
           this.enemies = new Enemies(this.scene, this.speed, 
             this.fieldOfView, this.enemyStartPos, 
             this.playerPosition, this.trie,
-            this.enemyTemplate, this.font, this.bulletTemplate, this.audio);
+            this.enemyTemplate, this.font, this.bulletTemplate, this.audio, this.explosion);
 
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
@@ -80,10 +82,10 @@ export default class Game {
       console.error(error);
     });
 
-    window.onresize = this.resize1.bind(this)
+    window.onresize = this.resize.bind(this)
   }
 
-  resize1() {
+  resize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.camera = new THREE.PerspectiveCamera(this.fieldOfView, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 0;
@@ -157,6 +159,7 @@ export default class Game {
 
   update() {
     this.player.update();
+    this.explosion.update()
 
     if (this.enemies.updateEnemy()) this.player.isHit();
     this.starfield.animateStars();

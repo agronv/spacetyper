@@ -1,13 +1,14 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, audio) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, audio, explosion) {
       this.font = font;
       this.trie = trie;
       this.scene = scene; 
       this.enemyTemplate = enemyTemplate;
       this.bulletTemplate = bulletTemplate;
       this.audio = audio;
+      this.explosion = explosion
       
       this.view = view;
       this.speed = speed;
@@ -69,7 +70,7 @@ export default class Enemies {
         this.audio.raiseVolume();
         let random = Math.floor(Math.random() * this.positions.length);
         let position = this.positions[random];
-        let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate);
+        let enemy = new Enemy(position, this.scene, this.speed, this.playerPos, this.trie, this.enemyTemplate, this.font, this.bulletTemplate, this.explosion);
         this.enemies.add(enemy);
       }, this.spawnRate);
     }, this.waveTitleDuration);

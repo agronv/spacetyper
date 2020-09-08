@@ -3,13 +3,14 @@ import Word from './word';
 import Bullet from './bullet';
 
 export default class Enemy {
-  constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bulletTemplate) {
+  constructor(position, scene, speed, playerPos, trie, enemyTemplate, font, bulletTemplate, explosion) {
     this.trie = trie;
     this.font = font;
     this.bullet = null;
     this.scene = scene;
     this.enemy = enemyTemplate.clone();
     this.bulletTemplate = bulletTemplate;
+    this.explosion = explosion
 
     this.speed = speed;
     this.position = position;
@@ -48,6 +49,7 @@ export default class Enemy {
     }
     const enemyObject = this.scene.getObjectByName(this.word);
     const wordObject = this.scene.getObjectByName(`${this.word}-word`);
+    this.explosion.explode(this.position.x, this.position.y, this.position.z)
     this.scene.remove(enemyObject);
     this.scene.remove(wordObject);
   }
@@ -64,5 +66,4 @@ export default class Enemy {
       if (this.position.z > this.playerPos.z - 1) return "HIT"
     }
   }
-
 }
