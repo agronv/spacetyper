@@ -65,6 +65,11 @@ class Starfield {
     for (let i = 0; i < this.stars.length; i++) {
       const star = this.stars[i];
 
+      // uncomment for rainbows
+      // if (this.decelerator === this.fast) {
+      //   star.material.color.setRGB(Math.random(), Math.random(), Math.random())
+      // }
+
       star.position.z += i / this.decelerator;
       if (star.position.z > 1) {
         star.position.z -= 1000;
