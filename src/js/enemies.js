@@ -1,13 +1,12 @@
 import Enemy from './enemy';
 
 export default class Enemies {
-    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, audio, explosion, starfield) {
+    constructor(scene, speed, view, startPos, playerPos, trie, enemyTemplate, font, bulletTemplate, explosion, starfield) {
       this.font = font;
       this.trie = trie;
       this.scene = scene; 
       this.enemyTemplate = enemyTemplate;
       this.bulletTemplate = bulletTemplate;
-      this.audio = audio;
       this.explosion = explosion
       this.starfield = starfield
       
@@ -63,13 +62,11 @@ export default class Enemies {
     this.waveCount++;
     this.waveTitle.innerText = `WAVE ${this.waveCount}`;
     this.waveTitle.classList.add("visible");
-    this.audio.lowerVolume();
     setTimeout(this.starfield.warpSpeed.bind(this.starfield), 500)
     this.waveCounter = setInterval(() => {
       clearInterval(this.waveCounter);
       this.spawnInterval = setInterval(() => {
         this.waveTitle.classList.remove("visible");
-        this.audio.raiseVolume();
         this.starfield.regularSpeed();
         let random = Math.floor(Math.random() * this.positions.length);
         let position = this.positions[random];

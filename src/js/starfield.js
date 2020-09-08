@@ -5,14 +5,21 @@ class Starfield {
     this.slow = 100
     this.fast = 5
     this.decelerator = this.slow
-    this.small = 1.25
+    this.small = 1
     this.big = 2
     this.addSphere();
   }
 
+  randomColor() {
+    const r = Math.floor(Math.random() * 255)
+    const g = Math.floor(Math.random() * 255)
+    const b = Math.floor(Math.random() * 255)
+    return `rgb(${r}, ${g}, ${b})`
+  }
+
   addSphere() {
     var geometry = new THREE.SphereGeometry(1, 32, 32)
-    var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    var material = new THREE.MeshBasicMaterial({ color: this.randomColor() });
 
     for (let x = 0; x < 500; x++) {
       var sphere = new THREE.Mesh(geometry, material)

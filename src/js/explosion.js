@@ -21,7 +21,7 @@ export default class Explosion {
       geometry.vertices.push(vertex);
       this.dirs.push({ x: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2), y: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2), z: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2) });
     }
-    var material = new THREE.ParticleBasicMaterial({ size: this.objectSize, color: this.colors[Math.round(Math.random() * this.colors.length)] });
+    var material = new THREE.ParticleBasicMaterial({ size: this.objectSize, color: "red"});
     var particleGroup = new THREE.ParticleSystem(geometry, material);
     particleGroup.length = 0
 
