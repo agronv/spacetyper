@@ -21,7 +21,7 @@ export default class Enemies {
       this.spawnRate = 3000;
       this.waveDuration = 30000;
       this.waveTitleDuration = 2500;
-      this.difficultyMultiplier = 1.15;
+      this.difficultyMultiplier = 1.2;
 
       this.waveTitle = document.getElementById('wave-count');
     }
