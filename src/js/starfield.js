@@ -5,12 +5,13 @@ class Starfield {
     this.slow = 100
     this.fast = 5
     this.decelerator = this.slow
-    this.spehereSize = 0.75
+    this.small = 1.25
+    this.big = 2
     this.addSphere();
   }
 
   addSphere() {
-    var geometry = new THREE.SphereGeometry(this.spehereSize, 32, 32)
+    var geometry = new THREE.SphereGeometry(1, 32, 32)
     var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
     for (let x = 0; x < 500; x++) {
@@ -20,17 +21,37 @@ class Starfield {
       sphere.position.y = (Math.random() * 1000) - 500;
       sphere.position.z = Math.random() * 1000;
 
+      sphere.scale.x = this.small
+      sphere.scale.y = this.small
+      sphere.scale.z = this.small
+
       this.scene.add(sphere);
       this.stars.push(sphere);
     }
   }
 
   warpSpeed() {
+    for (let i = 0; i < this.stars.length; i++) {
+      this.stars[i].scale.x = this.big
+      this.stars[i].scale.y = this.big
+      this.stars[i].scale.z = this.big
+    }
     this.decelerator = this.fast;
   }
 
   regularSpeed() {
-    this.decelerator = this.slow;
+    if (this.decelerator != this.slow) {
+      const r = Math.random()
+      const g = Math.random()
+      const b = Math.random()
+      for (let i = 0; i < this.stars.length; i++) {
+        this.stars[i].material.color.setRGB(r,g,b)
+        this.stars[i].scale.x = this.small
+        this.stars[i].scale.y = this.small
+        this.stars[i].scale.z = this.small
+      }
+      this.decelerator = this.slow;
+    }
   }
 
   animateStars() {
