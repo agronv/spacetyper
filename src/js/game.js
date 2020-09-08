@@ -71,7 +71,7 @@ export default class Game {
           this.enemies = new Enemies(this.scene, this.speed, 
             this.fieldOfView, this.enemyStartPos, 
             this.playerPosition, this.trie,
-            this.enemyTemplate, this.font, this.bulletTemplate, this.audio, this.explosion);
+            this.enemyTemplate, this.font, this.bulletTemplate, this.audio, this.explosion, this.starfield);
 
           this.trie.addEnemies(this.enemies);
           this.keyHandler = new KeyHandler(this.enemies, this);
