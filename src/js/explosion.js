@@ -5,7 +5,7 @@ export default class Explosion {
     this.totalObjects = 1000;
     this.objectSize = 10;
     this.duration = 75;
-    this.colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];
+    this.colors = [0xFF8400, 0xFF0000, 0xFFFFFF, 0xFFFF00];
     this.dirs = []
     this.particleGroups = []
   }
@@ -21,7 +21,7 @@ export default class Explosion {
       geometry.vertices.push(vertex);
       this.dirs.push({ x: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2), y: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2), z: (Math.random() * this.movementSpeed) - (this.movementSpeed / 2) });
     }
-    var material = new THREE.ParticleBasicMaterial({ size: this.objectSize, color: "red"});
+    var material = new THREE.ParticleBasicMaterial({ size: this.objectSize, color: this.colors[Math.round(Math.random() * this.colors.length)]});
     var particleGroup = new THREE.ParticleSystem(geometry, material);
     particleGroup.length = 0
 

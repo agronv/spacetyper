@@ -18,7 +18,7 @@ export default class Enemies {
       this.positions = this.setPositions();
 
       this.waveCount = 0;
-      this.spawnRate = 2000;
+      this.spawnRate = 3000;
       this.waveDuration = 30000;
       this.waveTitleDuration = 2500;
       this.difficultyMultiplier = 1.15;
@@ -88,7 +88,7 @@ export default class Enemies {
   endGame() {
     this.waveTitle.classList.remove("visible");
     this.waveCount = 0;
-    this.spawnRate = 2000;
+    this.spawnRate = 3000;
     clearInterval(this.difficultyInterval);
     this.stopSpawning();
   }

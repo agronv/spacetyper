@@ -11,10 +11,10 @@ class KeyHandler {
 
   clearGuess() {
     this.guess = "";
-    this.keyField.classList.add('blue');
+    this.keyField.classList.add('red');
     const interval = setInterval(() => {
       this.keyField.innerText = this.guess;
-      this.keyField.classList.remove('blue');
+      this.keyField.classList.remove('red');
       clearInterval(interval);
     }, 225);
   }

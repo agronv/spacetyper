@@ -156,12 +156,8 @@ div.divider {
 }
 
 #text-field-container > p {
-  color: #ffffff;
-  font-size: 30px;
-}
-
-#text-field.blue {
   color: #12EDFD;
+  font-size: 30px;
 }
 
 #text-field.red {
