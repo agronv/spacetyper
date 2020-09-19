@@ -7,7 +7,7 @@
 ## Inspiration
 One of the main barriers to becoming an efficient software developer is having a good typing speed. We built this game to help children and those who didn't grow up using computers improve their typing speed, so everyone can be on an even playing field.
 
-![gameplay](/public/images/game-demo.gif)
+![gameplay](/public/images/space.gif)
 
 ## How to Play
 Enemy ships spawn and attack the player. Type out each enemy's corresponding word in order to shoot down it down!
