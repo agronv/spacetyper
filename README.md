@@ -48,4 +48,9 @@ We implemented tries as our search tree data structure to match typed words to t
 ## Future Features
 * Combos give bombs to clear the screen of enemies
 * Upgrades
-* Develop additional games to furthur increase technological literacy!
+* Develop additional games to further increase technological literacy!
+
+## Bug Fixes
+* Fix caps lock issue: ignore caps as this does not register in the trie
+* Add instructions at the beginning. Let people know you can press space or enter to clear the trie and call them an astronaut
+* create another option for children which are words that are 6 characters or less
